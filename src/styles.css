@@ -1,0 +1,25 @@
+body{
+    background-color: black;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  table{
+    width: 100%;
+    text-align: center;
+  
+  }
+  tr{
+   height: 80px;
+  }
+  th{
+    font-size: 30px;
+  }
+  
+  table thead tr td {
+    border: 1px solid white;
+    padding: 10px;
+  }
+  
+  .ele-row img{
+    width: 40px;
+  }

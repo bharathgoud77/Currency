@@ -1,23 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react';
+import './styles.css';
+import TableRow from './components/table';
 
 function App() {
+  let [currencies, setCurrencies] = useState("");
+
+  useEffect(() => {
+    fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=40&page=1&sparkline=false")
+      .then((result) => {
+        return result.json();
+      })
+      .then((data) => {
+        setCurrencies(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+  }, []);
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+       <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>ID</th>
+            <th>Image</th>
+            <th>Symbol</th>
+            <th>Current Price</th>
+            <th>Total Volume</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            currencies!=="" &&
+            currencies.map((currency, index)=>{
+              return <TableRow obj = {currency} index = {index}></TableRow>
+            })
+          }
+        </tbody>
+       </table>
     </div>
   );
 }
